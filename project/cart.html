@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        main > table{
+            width: 100%;
+            margin-top: 3vh;
+            margin-bottom: 3vh;
+            border-collapse: collapse;
+        }
+        th{
+            border: 1px solid black;
+            height: 5vh;
+            font-size: 2.75vh;
+            text-align: center;
+            background-color: rgba(1,119,191,255);
+        }
+        td{
+            border: 1px solid black;
+            height: 5vh;
+            font-size: 2.5vh;
+            text-align: center;
+        }
+        
+        button{
+            height: 4vh;
+            width: 5vw;
+            border-radius: 10px;
+        }
+        .cart_crud{
+            display: flex;
+            flex-direction: row;
+            justify-content:flex-start;
+            align-items: center;
+            border: none;
+        }
+        .cart_crud > button{
+            margin-left: 1vw;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Cart</h1>
+        <table>
+            <tr>
+                <th>S No.</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Product 1</td>
+                <td>$100</td>
+                <td>1</td>
+                <td style="color: rgba(1,119,191,255);">$100</td>
+                <td class="cart_crud">
+                    <button style="background-color: red;">Remove</button>
+                    <button style="background-color: yellowgreen;">Edit</button>
+                    <button style="background-color: green;">Checkout</button>
+                </td>
+            </tr>
+        </table>
+    </main>
+    
+</body>
+</html>

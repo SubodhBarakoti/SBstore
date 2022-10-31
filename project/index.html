@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keyword" content="SBstore, online store">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <title>SBstore</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: white;
+            margin: 0;
+            padding: 0;
+        }
+        /* header section starts */
+
+        header{
+            display: grid;
+            grid-template-columns: 25vw auto;
+            top: 0;
+            position: sticky; 
+        }
+        header > #logo{
+            background-color: white;
+            grid-row: 1/3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        header>#logo>img{
+            height: 10vh;
+        }
+        header > .header_upper{
+            background-color: #fde4d7 ;
+            /* #dcae96 */
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+        }
+        header > .header_upper > div{
+            padding: 0px 1vw;
+            cursor: pointer;
+        }
+        header>div :hover{
+            color:rgba(1,119,191,255) ;
+            text-decoration: underline;
+        }
+        
+        header > .header_lower{
+            background-color: aliceblue;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        header > .header_lower > div{
+            padding: 0px 2vw;
+            cursor: pointer;
+        }
+        header > .header_upper > div :hover{
+            background-color: red;
+        }
+
+        /* header section closes  */
+
+        /* main starts here  */
+        main{
+            min-height:75vh;
+        }
+        main > #categorylist{
+            min-height: 50vh;
+            width: 20%;
+            background-color: aliceblue;
+            margin-top: 3vh;
+            text-align: center;
+            float: left;
+        }
+        main > #categorylist > p{
+            cursor: pointer;
+        }
+        main > #categorylist > p:hover{
+            color: rgba(1,119,191,255);
+            text-decoration: underline;
+        }
+
+
+        main> #categoryDiv{
+            width: 80%;
+            float: right;
+            display: grid;
+            grid-template-columns: auto auto auto;
+        }
+        main > #categoryDiv :hover{
+            cursor: pointer;
+        }
+
+        main>#categoryDiv >.categoryCard{
+            min-height: 40vh;
+            width: 25vw;
+            margin: 3vh 5% 0 5%;
+            background-color:aliceblue ;
+            text-align: center;
+        }
+        main>#categoryDiv >.categoryCard >.categoryImage> img{
+            height: 80%;
+            width: 75%;
+            margin-top: 10%;
+        }
+        /* main ends here  */
+        footer{
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="logo" onclick=location.href="hello.html">
+            <img src="./images/logo.jpg">
+        </div>
+
+        <div class="header_upper">
+            <div class="login" onclick=location.href="hello.html">
+                Login
+            </div>
+            <div class="profile" onclick=location.href="#">
+                Profile
+            </div>
+            <div class="signup" onclick=location.href="#">
+                Signup
+            </div>
+            <div class="logout" onclick=location.href="#">
+                Logout
+            </div>
+            <div class="sellhere" onclick=location.href="#">
+                Sell on SBstore
+            </div>
+        </div>
+
+        <div class="header_lower">
+                <div id="search">
+                    <input type="search" id="searchproduct" name="search" style="border:0px;background-color: #fde4d7; width :30vw; height: 5vh; text-align: center; border-radius: 0.5em;" placeholder="Search for any item">
+                </div>
+                <div id="cart" onclick=location.href="cart.html">
+                    <i class="fa fa-shopping-cart" style="font-size:2em; color:rgba(1,119,191,255);"></i>
+                    <!-- <i class="fa-thin fa-cart-shopping-fast" style="font-size:2em;"></i> -->
+                </div>
+                <div id="customer_care" onclick=location.href="#" >
+                    Customer Care
+                </div>
+                <div id="aboutus" onclick=location.href="#" >
+                    About Us  
+                </div>
+        </div>
+    </header>
+
+
+    <main>
+        <div id="categorylist">
+            <h2>Category</h2>
+            <p>Electornic Devices</p>
+            <p>Clothing</p>
+            <p>Books</p>
+            <p>Sports</p>
+            <p>Furniture</p>
+            <p>Others</p>
+        </div>
+        <div id="categoryDiv">
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+            <div class="categoryCard">
+                <div class="categoryImage">
+                    <img src="./images/category1.jpg">
+                </div>
+                <div class="categoryName">
+                    <h3>Clothing</h3>
+                </div>
+            </div>
+
+
+
+        </div>
+    </main>
+    <footer>
+        <p>&copy; SBstore</p>
+    </footer>
+</body>
+</html>
