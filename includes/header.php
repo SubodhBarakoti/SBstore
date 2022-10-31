@@ -63,6 +63,13 @@
             <?php
             
                 }
+                if(!empty($_SESSION['admin_id'])){
+            ?>
+                <div class="logout" onclick=location.href="/SBstore/admin/logout.php">
+                    Admin Logout
+                </div>
+                <?php
+                }
             ?>
         </div>
 
