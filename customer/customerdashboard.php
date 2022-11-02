@@ -43,6 +43,7 @@
                 <h1 style="margin:5vh auto auto 25vw; color:green;">Order History</h1>
                 <tr>
                     <th>S No.</th>
+                    <th>Product</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
@@ -56,9 +57,9 @@
                     if($result=mysqli_query($db_con,$sql)){
                         foreach($result as $row){
                             $sn++;
-                            $sql='SELECT product_name FROM product WHERE product_id="'.$row['product_id'].'" LIMIT 1';
+                            $sql='SELECT * FROM product WHERE product_id="'.$row['product_id'].'" LIMIT 1';
                             if($result2=mysqli_query($db_con,$sql)){
-                                $product_name=mysqli_fetch_array($result2);
+                                $product=mysqli_fetch_array($result2);
                                 if($row['status']==0){
                                     $delivery_satus="Ordered";
                                     $color='black';
@@ -76,8 +77,13 @@
                 ?>
                 <tr>
                     <td><?= $sn?></td>
+                    <td>
+                        <div>
+                            <img height="100vh" width="100vw" src="/SBstore/images/product/<?=$product['product_image']?>" alt="<?= $product['product_name']?>">
+                        </div>
+                    </td>
                     <td style="cursor:pointer;" onclick=location.href="/Sbstore/products/individualproduct.php?product_id=<?=$row['product_id'] ?>">
-                    <?= $product_name['product_name']?></td>
+                    <?= $product['product_name']?></td>
 
                     <td><?= $row['quantity']?></td>
                     <td>Rs. <?= $row['amount']?></td>
