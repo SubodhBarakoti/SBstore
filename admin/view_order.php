@@ -23,7 +23,7 @@
             <table>
                 <tr>
                     <th>Sn</th>
-                    <!-- <th>Image</th> -->
+                    <th>Image</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Total Amount</th>
@@ -43,8 +43,8 @@
                             
                             $query2='SELECT seller_name FROM seller WHERE seller_id="'.$row['seller_id'].'"';
                             $seller_name=mysqli_fetch_array(mysqli_query($db_con,$query2));
-                            $query3='SELECT product_name FROM product WHERE product_id="'.$row['product_id'].'"';
-                            $product_name=mysqli_fetch_array(mysqli_query($db_con,$query3));
+                            $query3='SELECT * FROM product WHERE product_id="'.$row['product_id'].'"';
+                            $product=mysqli_fetch_array(mysqli_query($db_con,$query3));
                             if($row['status']==0){
                                 $delivery_satus="Ordered";
                                 $color='black';
@@ -61,7 +61,12 @@
                 ?>
                 <tr>
                     <td><?= $sn?></td>
-                    <td onclick=location.href="/Sbstore/products/individualproduct.php?product_id=<?=$row['product_id']?>"><?= $product_name['product_name']?></td>
+                    <td>
+                        <div >
+                            <img height="100vh" width="100vw" src="/SBstore/images/product/<?=$product['product_image']?>" alt="<?= $product['product_name']?>">
+                        </div>
+                    </td>
+                    <td onclick=location.href="/Sbstore/products/individualproduct.php?product_id=<?=$row['product_id']?>"><?= $product['product_name']?></td>
                     <td><?= $row['quantity']?></td>
                     <td><?= $row['amount']?></td>
                     <td><?= $row['delivery_address']?></td>

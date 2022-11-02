@@ -65,6 +65,9 @@
                 }
                 if(!empty($_SESSION['admin_id'])){
             ?>
+                <div class="dashboard" onclick=location.href="/SBstore/admin/admindashboard.php">
+                    Admin Dashboard
+                </div>
                 <div class="logout" onclick=location.href="/SBstore/admin/logout.php">
                     Admin Logout
                 </div>
