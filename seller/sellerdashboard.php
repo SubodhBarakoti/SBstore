@@ -65,9 +65,10 @@
                 <h1 style="margin:5vh auto auto 10vw; color:green;">Order List</h1>
                 <tr>
                     <th>S No.</th>
+                    <th>Product</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Price per piece</th>
                     <th>Customer Name</th>
                     <th>Contact Info</th>
                     <th>Delivery Location</th>
@@ -81,9 +82,9 @@
                     if($result=mysqli_query($db_con,$sql)){
                         foreach($result as $row){
                             $sn++;
-                            $sql='SELECT product_name FROM product WHERE product_id="'.$row['product_id'].'"';
+                            $sql='SELECT * FROM product WHERE product_id="'.$row['product_id'].'"';
                             if($result2=mysqli_query($db_con,$sql)){
-                                $product_name=mysqli_fetch_array($result2);
+                                $product=mysqli_fetch_array($result2);
                                 if($row['status']==0){
                                     $delivery_satus="Ordered";
                                     $button_status="Deliver Package";
@@ -100,8 +101,13 @@
                 ?>
                 <tr>
                     <td><?= $sn?></td>
+                    <td>
+                        <div class="product_cart_image">
+                            <img height="100vh" width="100vw" src="/SBstore/images/product/<?=$product['product_image']?>" alt="<?= $product['product_name']?>">
+                        </div>
+                    </td>
                     <td style="cursor:pointer;" onclick=location.href="/Sbstore/products/individualproduct.php?product_id=<?=$row['product_id'] ?>">
-                    <?= $product_name['product_name']?></td>
+                    <?= $product['product_name']?></td>
 
                     <td><?= $row['quantity']?></td>
                     <td>Rs. <?= $row['amount']?></td>

@@ -35,9 +35,10 @@
                 <h1 style="margin:5vh auto auto 10vw; color:green;">Product List</h1>
                 <tr>
                     <th>S No.</th>
+                    <th>Product</th>
                     <th>Product Name</th>
                     <th>Quantity Left</th>
-                    <th>Price</th>
+                    <th>Price </th>
                     <th>Category</th>
                     <th>Total Product Sold</th>
                     
@@ -59,6 +60,11 @@
                 ?>
                 <tr>
                     <td><?= $sn?></td>
+                    <td>
+                        <div class="product_cart_image">
+                            <img height="100vh" width="100vw" src="/SBstore/images/product/<?=$row['product_image']?>" alt="<?= $row['product_name']?>">
+                        </div>
+                    </td>
                     <td style="cursor:pointer;" onclick=location.href="/Sbstore/products/individualproduct.php?product_id=<?=$row['product_id'] ?>">
                     <?= $row['product_name']?></td>
 

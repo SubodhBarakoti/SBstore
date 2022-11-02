@@ -27,6 +27,14 @@
             echo "required category name and image";
         }
     }
+    if(isset($_POST['delete_category'])){
+        $category_id=$_POST['category_id'];
+        $sql='DELETE FROM category WHERE category_id="'.$category_id.'"';
+        $result1=mysqli_query($db_con,$sql);
+        if(!$result1){
+            die("Error: ".mysqli_error($db_con));
+        }
+    }
 
 ?>
 <!DOCTYPE html>
@@ -60,7 +68,8 @@
                 </div>
                 <table>
                     <tr>
-                        <th>Category Id</th>
+                        <th>Sno</th>
+                        <th>Category Image</th>
                         <th>Category Name</th>
                         <!-- <th>Delete category</th> -->
                     </tr>
@@ -68,11 +77,28 @@
                         include_once '../connection/connection.php';
                         $query="SELECT * FROM category";
                         $result=mysqli_query($db_con,$query);
+                        $sn=0;
                         while($row=mysqli_fetch_assoc($result)){
-                            echo "<tr>";
-                            echo "<td>".$row['category_id']."</td>";
-                            echo "<td>".$row['category_name']."</td>";
-                            echo "</tr>";
+                            $sn++;
+                            ?>
+                            <tr>
+                                <td><?= $sn;?></td>
+                                <td>
+                                    <div class="product_cart_image">
+                                        <img height="200vh" width="250vw" src="/SBstore/images/category/<?=$row['category_image']?>" alt="<?= $row['category_name']?>">
+                                    </div>
+                                </td>
+                                <td><?= $row['category_name']?></td>
+                                <td style="border: none;">
+                                    <div class="delete_category">
+                                        <form action="addcategory.php">
+                                            <input type="hidden" name="category_id" value="<?= $row['category_id']?>">
+                                            <input type="submit" value="Delete" name="delete_category">
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
                         }
                     ?>
                 </table>

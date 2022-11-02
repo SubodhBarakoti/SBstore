@@ -3,6 +3,15 @@
     include_once '../connection/connection.php';
 
 
+
+    function already_in_cart($product_id,$customer_id,$db_con){
+        $query1='SELECT * FROM cart WHERE product_id="'.$product_id.'" AND customer_id ="'.$customer_id.'"';
+        if(mysqli_num_rows(mysqli_query($db_con,$query1))>0){
+            return true;
+        }
+        else{return false;}
+    }
+
     if(isset($_POST['addtocart'])){
         $quantity=$_POST['quantity'];
         $product_id=$_POST['product_id'];
@@ -11,10 +20,22 @@
         }
         else{
             $customer_id=$_SESSION['customer_id'];
-            $sql = 'INSERT INTO cart(customer_id,product_id,quantity) VALUES("'.$customer_id.'","'.$product_id.'","'.$quantity.'")';
-            $result=mysqli_query($db_con,$sql);
-            if($result){
-                header('location:cart.php');
+            $query1='SELECT * FROM cart WHERE product_id="'.$product_id.'" AND customer_id ="'.$customer_id.'"';
+            if(mysqli_num_rows($result1=mysqli_query($db_con,$query1))>0){
+                $row=mysqli_fetch_array($result1);
+                $sql = 'UPDATE cart SET quantity="'.$quantity.'" WHERE cart_id="'.$row['cart_id'].'"';
+                $result=mysqli_query($db_con,$sql);
+                if($result){
+                    $_SESSION['already_in_cart']=true;
+                    header('location:cart.php');
+                }
+            }
+            else{
+                $sql = 'INSERT INTO cart(customer_id,product_id,quantity) VALUES("'.$customer_id.'","'.$product_id.'","'.$quantity.'")';
+                $result=mysqli_query($db_con,$sql);
+                if($result){
+                    header('location:cart.php');
+                }   
             }
         }
         
@@ -29,11 +50,24 @@
         }
         else{
             $customer_id=$_SESSION['customer_id'];
-            $sql = 'INSERT INTO cart(customer_id,product_id,quantity) VALUES("'.$customer_id.'","'.$product_id.'","'.$quantity.'")';
-            $result=mysqli_query($db_con,$sql);
-            if($result){
-                $cart_id = mysqli_insert_id($db_con);
-                header('location:../order/checkout.php?cart_id='.$cart_id);
+            $query1='SELECT * FROM cart WHERE product_id="'.$product_id.'" AND customer_id ="'.$customer_id.'"';
+            if(mysqli_num_rows($result1=mysqli_query($db_con,$query1))>0){
+                $row=mysqli_fetch_array($result1);
+                $sql = 'UPDATE cart SET quantity="'.$quantity.'" WHERE cart_id="'.$row['cart_id'].'"';
+                $result=mysqli_query($db_con,$sql);
+                if($result){
+                    $_SESSION['cart_id']=$row['cart_id'];
+                    header('location:../order/checkout.php');
+                }
+            }
+            else{
+                $sql = 'INSERT INTO cart(customer_id,product_id,quantity) VALUES("'.$customer_id.'","'.$product_id.'","'.$quantity.'")';
+                $result=mysqli_query($db_con,$sql);
+                if($result){
+                    $cart_id = mysqli_insert_id($db_con);
+                    $_SESSION['cart_id']=$cart_id;
+                    header('location:../order/checkout.php');
+                } 
             }
         }
     }

@@ -220,6 +220,19 @@ th{
 #showcategory{
     margin-left: 25vw;
 }
+
+.delete_category>form>input[type=submit]{
+    height: 5vh;
+    width: 5.5vw;
+    border: none;
+    border-radius: 20px;
+    background-color:rgb(238, 144, 156);
+    color: white;
+    cursor: pointer;
+}
+.delete_category>form>input[type=submit]:hover{
+    background-color: rgb(236, 66, 106);
+}
 /* admin category add  ends*/
 
 /*seller add product form starts*/
@@ -443,6 +456,7 @@ button{
 .cart_crud >form>button:hover{
     background-color: rgb(66, 236, 66);
 }
+
 /* carts ends  */
 
 

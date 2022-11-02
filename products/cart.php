@@ -4,6 +4,10 @@
     if(empty($_SESSION['customer_id'])){
         header('location:/SBstore/customer/customerlogin.php');
     }
+    if(!empty($_SESSION['already_in_cart'])){
+        echo '<script>alert("Item already in the cart.")</script>';
+        unset($_SESSION['already_in_cart']);
+    }
     if(isset($_POST['delete_Cart'])){
         $cart_id=$_POST['cart_id'];
         $sql='DELETE FROM cart WHERE cart_id="'.$cart_id.'"';
@@ -11,6 +15,10 @@
         if(!$result){
             die("Error: ".mysqli_error($db_con));
         }
+    }
+    if(isset($_POST['user_checkout'])){
+        $_SESSION['cart_id']=$_POST['cart_id'];
+        header('location:/SBstore/order/checkout.php');
     }
 ?>
 <!DOCTYPE html>
@@ -29,6 +37,7 @@
             <table>
                 <tr>
                     <th>S No.</th>
+                    <th>Product</th>
                     <th>Product Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -53,6 +62,9 @@
 
                 <tr>
                     <td><?= $sn++; ?></td>
+                    <td>
+                        <img height="100vh" width="100vw" src="/SBstore/images/product/<?=$product['product_image']?>" alt="<?= $product['product_name']?>">
+                    </td>
                     <td><?= $product['product_name']?></td>
                     <td>Rs. <?= $product['product_price']?></td>
                     <td><?= $row['quantity']?></td>
@@ -70,7 +82,7 @@
                         </form>
 
 
-                        <form action="/SBstore/order/checkout.php" method="post">
+                        <form action="/SBstore/products/cart.php" method="post">
                             <input type="hidden" name="cart_id" value="<?= $row['cart_id']?>">
                             <button name="user_checkout" type="submit">Checkout</button>
                         </form>
@@ -83,7 +95,7 @@
                         }
                         ?>
                             <tr>
-                                <td colspan="4">Total</td>
+                                <td colspan="5">Total</td>
                                 <td>Rs. <?=$sum;?></td>
                             </tr>
                         <?php

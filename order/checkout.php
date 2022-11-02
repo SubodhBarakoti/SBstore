@@ -4,6 +4,41 @@
     if(empty($_SESSION['customer_id'])){
         header('location:/SBstore/customer/customerlogin.php');
     }
+    if(empty($_SESSION['cart_id'])){
+        if(!empty($_COOKIE['cart_id'])){
+            $query="SELECT * FROM cart WHERE cart_id = '".$_COOKIE['cart_id']."' LIMIT 1";
+                if($result = mysqli_query($db_con,$query)){
+                $row=mysqli_fetch_array($result);
+                $quantity=$row['quantity'];
+                $customer_id=$row['customer_id'];
+                $product_id=$row['product_id'];
+            }
+            else{
+                echo "Error: ".mysqli_error($db_con);
+            }
+        }
+    }
+    if(!empty($_SESSION['cart_id'])){
+        $cart_id='cart_id';
+        setcookie($cart_id,$_SESSION['cart_id'],time()+(60*60));
+        unset($_SESSION['cart_id']);
+        $query="SELECT * FROM cart WHERE cart_id = '".$_COOKIE[$cart_id]."' LIMIT 1";
+        if($result = mysqli_query($db_con,$query)){
+            $row=mysqli_fetch_array($result);
+            $quantity=$row['quantity'];
+            $customer_id=$row['customer_id'];
+            $product_id=$row['product_id'];
+
+            // $query2='DELETE FROM cart WHERE cart_id="'.$cart_id.'"';
+            // $result2=mysqli_query($db_con,$query2);
+            // if(!$result2){
+            //     echo "Error: ".mysqli_error($db_con);
+            // }
+        }
+        else{
+            echo "Error: ".mysqli_error($db_con);
+        }
+    }
     if(isset($_POST['checkout'])){
         $cart_id=$_POST['cart_id'];
         $customers_name = $_POST['customers_name'];
@@ -69,23 +104,15 @@
                 Checkout
             </div>
             <?php
-                if(isset($_POST['user_checkout'])){
-                    $cart_id=$_POST['cart_id'];
-                    $query="SELECT * FROM cart WHERE cart_id = '".$cart_id."'";
-                    $result = mysqli_query($db_con,$query);
-                    if($result){
-                        while($cart_info=mysqli_fetch_array($result)){
-                            $product_id=$cart_info['product_id'];
-                            $query2="SELECT * FROM product WHERE product_id = '".$product_id."'";
-                            $result2=mysqli_query($db_con,$query2);
-                            if($result2){
-                                $product=mysqli_fetch_array($result2);
-                                $quantity=$cart_info['quantity'];
-                                if($product['product_quantity']<$quantity){
-                                    $quantity=$product['product_quantity'];
-                                }
-                                $price=$quantity*$product['product_price'];
-                                $left_quantity=$product['product_quantity']-$quantity;
+                $query2="SELECT * FROM product WHERE product_id = '".$product_id."'";
+                $result2=mysqli_query($db_con,$query2);
+                if($result2){
+                    $product=mysqli_fetch_array($result2);
+                    if($product['product_quantity']<$quantity){
+                        $quantity=$product['product_quantity'];
+                    }
+                    $price=$quantity*$product['product_price'];
+                    $left_quantity=$product['product_quantity']-$quantity;
                 
             ?>
             <form action="checkout.php" method="POST">
@@ -120,9 +147,8 @@
             <?php
                                 
                             }
-                        }
-                    }
-                }
+                        
+                
             ?>
         </div>
 

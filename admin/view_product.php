@@ -23,14 +23,14 @@
             <table>
                 <tr>
                     <th>Sn</th>
-                    <!-- <th>Image</th> -->
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Price Per Piece</th>
                     <th>Remaining Quantity</th>
                     <th>Total Order</th>
-                    <th>Category</th>
                     <th>Seller</th>
+                    <th>Category</th>
                 </tr>
                 <?php
                     
@@ -49,6 +49,11 @@
                 ?>
                 <tr>
                     <td><?= $sn?></td>
+                    <td>
+                        <div class="product_cart_image">
+                            <img height="100vh" width="100vw" src="/SBstore/images/product/<?=$row['product_image']?>" alt="<?= $row['product_name']?>">
+                        </div>
+                    </td>
                     <td><?= $row['product_name']?></td>
                     <td><?= $row['product_description']?></td>
                     <td><?= $row['product_price']?></td>
