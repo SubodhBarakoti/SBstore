@@ -6,6 +6,7 @@
     }
     if(empty($_SESSION['cart_id'])){
         if(!empty($_COOKIE['cart_id'])){
+            // echo $_COOKIE['cart_id'];
             $query="SELECT * FROM cart WHERE cart_id = '".$_COOKIE['cart_id']."' LIMIT 1";
                 if($result = mysqli_query($db_con,$query)){
                 $row=mysqli_fetch_array($result);
@@ -21,13 +22,13 @@
     if(!empty($_SESSION['cart_id'])){
         $cart_id='cart_id';
         setcookie($cart_id,$_SESSION['cart_id'],time()+(60*60));
-        unset($_SESSION['cart_id']);
-        $query="SELECT * FROM cart WHERE cart_id = '".$_COOKIE[$cart_id]."' LIMIT 1";
+        $query="SELECT * FROM cart WHERE cart_id = '".$_SESSION['cart_id']."'";
         if($result = mysqli_query($db_con,$query)){
             $row=mysqli_fetch_array($result);
             $quantity=$row['quantity'];
             $customer_id=$row['customer_id'];
             $product_id=$row['product_id'];
+            unset($_SESSION['cart_id']);
 
             // $query2='DELETE FROM cart WHERE cart_id="'.$cart_id.'"';
             // $result2=mysqli_query($db_con,$query2);
@@ -61,7 +62,7 @@
                     $ordered_quantity=$ordered['totalproductordered']+$quantity;
                     $query3='UPDATE product SET product_quantity="'.$left_quantity.'", totalproductordered="'.$ordered_quantity.'" WHERE product_id="'.$product_id.'"';
                     if(mysqli_query($db_con,$query3)){
-                        $query='DELETE FROM cart WHERE cart_id="'.$cart_id.'"';
+                        $query='DELETE FROM cart WHERE cart_id="'.$_COOKIE['cart_id'].'"';
                         if(mysqli_query($db_con,$query)){
                             header('location:/SBstore/index.php');
                         }

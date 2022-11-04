@@ -68,7 +68,7 @@
                     <th>Product</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
-                    <th>Price per piece</th>
+                    <th>Total Amount</th>
                     <th>Customer Name</th>
                     <th>Contact Info</th>
                     <th>Delivery Location</th>
