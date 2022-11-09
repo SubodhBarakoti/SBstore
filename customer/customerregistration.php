@@ -28,7 +28,7 @@
                                 if($result2){
                                     if(mysqli_num_rows($result2)>0){
                                         $row = mysqli_fetch_array($result2);
-                                        $_SESSION['seller_id']=$row['seller_id'];
+                                        $_SESSION['customer_id']=$row['customer_id'];
                                         header('location:../index.php');
                                     }
                                     else{
