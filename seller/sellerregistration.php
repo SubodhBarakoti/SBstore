@@ -12,7 +12,9 @@
         $seller_bank_account_no = $_POST['seller_bank_account_no'];
         $seller_address = $_POST['seller_address'];
         if($seller_password == $confirmPassword){
-            if(!empty($seller_name) && !empty($seller_email) && !empty($seller_password) && !empty($seller_contact) && !empty($seller_citizenshipno) && !empty($seller_dob) && !empty($seller_bank_account_no) && !empty($seller_address) && filter_var($seller_email, FILTER_VALIDATE_EMAIL)){
+            if(!empty($seller_name) && !empty($seller_email) && !empty($seller_password) && !empty($seller_contact)&&is_numeric($seller_contact)&&strlen($seller_contact)==10
+             && !empty($seller_citizenshipno) && !empty($seller_dob) && !empty($seller_bank_account_no) && !empty($seller_address) 
+             && filter_var($seller_email, FILTER_VALIDATE_EMAIL)){
                 $query3 = "SELECT * FROM seller WHERE seller_email = '$seller_email' OR seller_contact = '$seller_contact' OR seller_citizenshipno = '$seller_citizenshipno' OR seller_bank_account_no = '$seller_bank_account_no'";
                 $result3 = mysqli_query($db_con,$query3);
                 if($result3){
@@ -50,7 +52,7 @@
                 }
             }
             else{
-                echo"Empty field or Invalid email format";
+                echo"Empty field or Invalid phone number or email format";
             }
         }
         else{

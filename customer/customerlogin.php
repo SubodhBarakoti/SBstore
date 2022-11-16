@@ -4,6 +4,7 @@
     if(isset($_POST['login'])){
         $email = $_POST['customer_email'];
         $password = $_POST['customer_password'];
+       if(!empty($email) && !empty($password) && filter_var($email, FILTER_VALIDATE_EMAIL)){
         $query = 'SELECT * FROM customer WHERE customer_email = "'.$email.'" AND customer_password = "'.$password.'"';
         $result = mysqli_query($db_con,$query);
         if($result){
@@ -20,6 +21,10 @@
         else{
             echo "Error ".mysqli_error($db_con);;
         }
+       }
+       else{
+        echo "Error: Empty field or Invalid Email";
+       }
     }
 ?>
 <!DOCTYPE html>

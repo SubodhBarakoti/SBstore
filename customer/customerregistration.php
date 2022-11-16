@@ -11,7 +11,8 @@
         $customer_address = $_POST['customer_address'];
         
         if($customer_password == $confirmPassword){
-            if(!empty($customer_name) && !empty($customer_email) && !empty($customer_password) && !empty($customer_contact) && !empty($customer_dob) && !empty($customer_address) && filter_var($customer_email, FILTER_VALIDATE_EMAIL)){
+            if(!empty($customer_name) && !empty($customer_email) && !empty($customer_password) && !empty($customer_contact) &&
+             !empty($customer_dob) && is_numeric($customer_contact) && strlen($customer_contact)==10 && !empty($customer_address) && filter_var($customer_email, FILTER_VALIDATE_EMAIL)){
                 $query3 = "SELECT * FROM customer WHERE customer_email = '$customer_email' OR customer_contact = '$customer_contact'";
                 $result3 = mysqli_query($db_con,$query3);
                 if($result3){
@@ -49,7 +50,7 @@
                 }
             }
             else{
-                echo"Empty field or Invalid email format";
+                echo"Empty field or Invalid phone number or email format";
             }
         }
         else{
@@ -73,6 +74,25 @@
     <main>
         <div id="customerregister_form">
             <h2>Create an Account</h2>
+            <?php
+                if(isset($_POST['register'])){
+            ?>
+            <form action="customerregistration.php" method="POST">
+                <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name" value="<?=$_POST['customer_name']?>"><br>
+                <input type="email" name="customer_email" id="customer_email" placeholder="Email" value="<?=$_POST['customer_email']?>"><br>
+                <input type="password" name="customer_password" id="customer_password" placeholder="Password"><br>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+                <input type="text" name="customer_contact" id="customer_contact" placeholder="10 digit Phone Number" value="<?=$_POST['customer_contact']?>"><br>
+                <label for="customer_dob">Enter your Date of Birth:</label><br>
+                <input type="date" name="customer_dob" id="customer_dob" value="<?=$_POST['customer_dob']?>"><br>
+                <input type="text" id="customer_address" name="customer_address" placeholder="Address" value="<?=$_POST['customer_address']?>"><br>
+                <input type="submit" name="register" value="Create Account" ><br>
+                <p style="float: right;">Already have an account, Login <a href="customerlogin.php">here!</a></p>
+            </form>
+            <?php
+                }
+                else{
+            ?>
             <form action="customerregistration.php" method="POST">
                 <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name"><br>
                 <input type="email" name="customer_email" id="customer_email" placeholder="Email"><br>
@@ -85,6 +105,9 @@
                 <input type="submit" name="register" value="Create Account"><br>
                 <p style="float: right;">Already have an account, Login <a href="customerlogin.php">here!</a></p>
             </form>
+            <?php
+                }
+            ?>
         </div>
 
     </main>

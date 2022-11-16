@@ -4,20 +4,26 @@
     if(isset($_POST['login'])){
         $email = $_POST['seller_email'];
         $password = $_POST['seller_password'];
-        $query = 'SELECT * FROM seller WHERE seller_email = "'.$email.'" AND seller_password = "'.$password.'"';
-        $result = mysqli_query($db_con,$query);
-        if($result){
-            if(mysqli_num_rows($result)>0){
-                $row = mysqli_fetch_array($result);
-                $_SESSION['seller_id']=$row['seller_id'];
-                header('location:sellerdashboard.php');
+        if(!empty($email) && !empty($password) && filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $query = 'SELECT * FROM seller WHERE seller_email = "'.$email.'" AND seller_password = "'.$password.'"';
+            $result = mysqli_query($db_con,$query);
+            if($result){
+                if(mysqli_num_rows($result)>0){
+                    $row = mysqli_fetch_array($result);
+                    $_SESSION['seller_id']=$row['seller_id'];
+                    header('location:sellerdashboard.php');
+                }
+                else{
+                    echo 'incorrect passord or username';
+                }
+                
             }
             else{
-                echo 'incorrect passord or username';
+                echo "Error ".mysqli_error($db_con);;
             }
         }
         else{
-            echo "Error ".mysqli_error($db_con);;
+            echo "Error: Empty fields or Invalid email.";
         }
     }
 ?>
