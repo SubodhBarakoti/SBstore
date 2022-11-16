@@ -77,36 +77,31 @@
         <?php
                 if(isset($_GET['product_name'])){
                     $product_name=$_GET['product_name'];
-                    $query1="SELECT product_name FROM product Where product_name='".$product_name."'";
+                    ?>
+                            <div class="productheading">
+                                <br><h1 style="color: green;">&emsp;Search result for: <?=$product_name ?></h1>
+                            </div>
+                            <div id="categoryDiv">
+                    <?php
+                    $query1="SELECT * FROM product Where product_description LIKE '%".$product_name."%' OR product_name LIKE '%".$product_name."%' ORDER BY totalproductordered DESC";
                     $result1=mysqli_query($db_con,$query1);
                     if(mysqli_num_rows($result1)>0){
-                    foreach($result1 as $row)
+                        foreach($result1 as $product){
             ?>
-                    <div class="productheading">
-                        <br><h1 style="color: green;">&emsp;<?=$row['product_name'] ?></h1>
-                    </div>
-                    <div id="categoryDiv">
-                <?php
-                    $sql = 'SELECT * FROM product Where product_name = "'.$product_name.'" ORDER BY totalproductordered DESC';
-                    $result=mysqli_query($db_con,$sql);
-                    if($result){
-                        foreach ($result as $row) {   
-                
-                ?>
-                            
-                        <div class="categoryCard" onclick=location.href="../products/individualproduct.php?product_id=<?=$row['product_id'] ?>">
+                    
+                        <div class="categoryCard" onclick=location.href="../products/individualproduct.php?product_id=<?=$product['product_id'] ?>">
                             <div class="categoryImage">
-                                <img src="../images/product/<?= $row['product_image'] ?>" alt="<?= $row['product_name']?>"><br>
+                                <img src="../images/product/<?= $product['product_image'] ?>" alt="<?= $product['product_name']?>"><br>
                             </div>
                             <div class="categoryName">
-                                <h3><?= $row['product_description']?></h3>
-                                <h2 style="color: rgba(1,119,191,255);">Price: <?= $row['product_price']?></h2>
+                                <h3><?= $product['product_description']?></h3>
+                                <h2 style="color: rgba(1,119,191,255);">Price: <?= $product['product_price']?></h2>
                             </div>
                         </div>
+                    
                 <?php
                         }
                     }
-                }
                 else{   
                     ?>
                         <h1 style="margin-top: 20vh;margin-left: 50vw; color:red;">!!Product Not Found!!</h1>
@@ -114,9 +109,7 @@
                 }
             }
                 ?>
-
-</div>
-
+                </div>
 
     </main>
 
