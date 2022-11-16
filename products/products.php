@@ -85,7 +85,7 @@
                     <?php
                     $query1="SELECT * FROM product Where product_description LIKE '%".$product_name."%' OR product_name LIKE '%".$product_name."%' ORDER BY totalproductordered DESC";
                     $result1=mysqli_query($db_con,$query1);
-                    if(mysqli_num_rows($result1)>0){
+                    if(mysqli_num_rows($result1)>0 && strlen($product_name)>2){
                         foreach($result1 as $product){
             ?>
                     
@@ -104,7 +104,7 @@
                     }
                 else{   
                     ?>
-                        <h1 style="margin-top: 20vh;margin-left: 50vw; color:red;">!!Product Not Found!!</h1>
+                        <h1 style="margin-top: 20vh;margin-left: 25vw; color:red;">!!Product Not Found!!</h1>
                     <?php
                 }
             }
